@@ -167,6 +167,7 @@ class InnerTube {
         let playabilityStatus: PlayabilityStatus?
         let streamingData: StreamingData?
         let videoDetails: VideoDetails?
+        let captions: Captions?
 
         struct PlayabilityStatus: Decodable {
             let status: String?
@@ -186,6 +187,27 @@ class InnerTube {
                     let url: URL
                     let width: Int
                     let height: Int
+                }
+            }
+        }
+        
+        struct Captions: Decodable {
+            var playerCaptionsTracklistRenderer: PlayerCaptionsTracklistRenderer?
+        
+            struct PlayerCaptionsTracklistRenderer: Decodable {
+                var captionTracks: [CaptionTrack]?
+                
+                struct CaptionTrack: Decodable {
+                    var baseUrl: String
+                    var name: Name
+                    
+                    struct Name: Decodable {
+                        var runs: [Run]
+                        
+                        struct Run: Decodable {
+                            var text: String
+                        }
+                    }
                 }
             }
         }

@@ -300,6 +300,14 @@ public class YouTube {
             return livestreams
         }
     }
+    
+    public var captions: [[Caption]] {
+        get async throws {
+            try await videoInfos
+                .compactMap { $0.captions?.playerCaptionsTracklistRenderer?.captionTracks }
+                .map { $0.compactMap { Caption(url: $0.baseUrl, name: $0.name.runs.first?.text ?? "English") } }
+        }
+    }
 
     /// streaming data from video info
     var streamingData: [InnerTube.StreamingData] {
