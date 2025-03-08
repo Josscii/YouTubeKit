@@ -138,4 +138,7 @@ public struct Stream: Sendable {
         itag.videoResolution
     }
     
+    public var audioBitrate: Int? {
+        itag.audioBitrate
+    }
 }
